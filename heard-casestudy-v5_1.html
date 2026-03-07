@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HEARD — Built by Rey Benoit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,200;1,9..40,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1C2A35;
+    --ink-mid: #475461;
+    --ink-light: #8590A0;
+    --rule: #CCD3D9;
+    --bg: #F4F6F7;
+    --white: #FFFFFF;
+    --page: #FAFBFC;
+    --accent: #4A90E2;
+    --dark: #1C2A35;
+    --dark-mid: #2E3F4E;
+    --success: #6B8E5F;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--page);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    background: var(--page);
+    border-bottom: 1.5px solid var(--rule);
+  }
+
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 64px; height: 56px;
+    max-width: 1440px; margin: 0 auto;
+  }
+
+  .nav-logo {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700; font-size: 14px; letter-spacing: 0.1em;
+    color: var(--ink); text-decoration: none;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .lm { display: flex; align-items: flex-end; gap: 2px; height: 14px; }
+  .lm span { display: block; background: var(--accent); border-radius: 1px; width: 2.5px; }
+
+  .nav-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-light);
+  }
+
+  /* FIX 3 — NAV CTA is now recruiter-facing */
+  .nav-cta {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.04em;
+    color: var(--white); background: var(--accent);
+    text-decoration: none; border-radius: 5px; padding: 8px 18px;
+    transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.88; }
+
+  /* ─── PAGE WRAPPER ─── */
+  .page-wrap {
+    max-width: 1440px; margin: 0 auto;
+    padding-top: 56px;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: calc(100vh - 56px);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: 0 64px;
+    border-bottom: 1.5px solid var(--rule);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hero-top {
+    padding: 48px 0 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1.5px solid var(--rule);
+  }
+
+  .hero-top-left {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-light);
+  }
+
+  .hero-top-right {
+    display: flex; gap: 32px; align-items: center;
+  }
+
+  .htag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-light);
+    border: 1px solid var(--rule);
+    border-radius: 3px; padding: 4px 10px;
+  }
+
+  .hero-center {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 48px 0;
+    position: relative;
+  }
+
+  .hero-byline {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 22px; font-weight: 300; letter-spacing: -0.01em;
+    color: var(--ink-mid);
+    margin-top: 32px; margin-bottom: 0;
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .hero-h1 {
+    font-size: clamp(48px, 8.5vw, 128px);
+    font-weight: 200;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+
+  .hero-h1 .line-em {
+    font-style: italic; color: var(--ink-light); font-weight: 200;
+  }
+
+  .hero-h1 .line-accent { color: var(--accent); }
+
+  /* FIX 2 — Hero descriptor cells are larger and bolder for scannability */
+  .hero-descriptor-wrap {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 0; margin-top: 60px;
+    border-top: 1.5px solid var(--rule);
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+
+  .hero-d-cell {
+    padding: 32px 36px 32px 0;
+    border-right: 1.5px solid var(--rule);
+  }
+
+  .hero-d-cell:last-child { border-right: none; padding-right: 0; }
+  .hero-d-cell:not(:first-child) { padding-left: 36px; }
+
+  .hdc-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 12px;
+  }
+
+  /* Bumped from 15px → 17px, weight from 400 → 500 */
+  .hdc-value {
+    font-size: 17px; font-weight: 500; line-height: 1.5; color: var(--ink);
+  }
+
+  .hdc-value span { color: var(--ink-mid); font-weight: 400; }
+
+  /* ─── STAT STRIPE ─── */
+  .stat-stripe {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1.5px solid var(--rule);
+    border-bottom: 1.5px solid var(--rule);
+    background: var(--dark);
+  }
+
+  .stat-cell {
+    padding: 48px 40px;
+    border-right: 1px solid rgba(255,255,255,0.07);
+  }
+  .stat-cell:last-child { border-right: none; }
+
+  .sc-num {
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 200; line-height: 1; letter-spacing: -0.03em;
+    color: var(--white); margin-bottom: 10px;
+  }
+  .sc-num em { color: var(--accent); font-style: normal; }
+
+  .sc-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.3); margin-bottom: 8px;
+  }
+
+  .sc-desc { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.5; }
+
+  /* ─── BIG STATEMENT (intro callout) ─── */
+  .big-statement {
+    padding: 80px 64px;
+    border-bottom: 1.5px solid var(--rule);
+  }
+
+  .bs-inner {
+    display: grid; grid-template-columns: 280px 1fr; gap: 80px;
+    align-items: center;
+  }
+
+  .bs-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 16px;
+  }
+
+  .bs-number {
+    font-size: 96px; font-weight: 200; line-height: 0.9;
+    color: var(--rule); letter-spacing: -0.04em;
+    font-family: 'DM Sans';
+  }
+
+  .bs-quote {
+    font-size: clamp(24px, 3vw, 40px);
+    font-weight: 200; line-height: 1.3; letter-spacing: -0.015em;
+    color: var(--ink);
+    font-style: italic;
+  }
+
+  /* ─── FIX 2 — FULL-WIDTH CALLOUT STRIPE ─── */
+  /* Interrupts the chapter flow with a scannable, large-type proof point */
+  .callout-stripe {
+    background: var(--dark);
+    padding: 72px 64px;
+    border-top: 1.5px solid rgba(255,255,255,0.06);
+    border-bottom: 1.5px solid rgba(255,255,255,0.06);
+  }
+
+  .callout-stripe.light {
+    background: var(--bg);
+    border-top: 1.5px solid var(--rule);
+    border-bottom: 1.5px solid var(--rule);
+  }
+
+  .cs-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    align-items: center;
+    max-width: 1200px;
+  }
+
+  .cs-inner.single { grid-template-columns: 1fr; max-width: 820px; }
+
+  .callout-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 24px;
+  }
+
+  .callout-stripe.light .callout-label { color: var(--accent); }
+
+  .callout-text {
+    font-size: clamp(28px, 3.5vw, 52px);
+    font-weight: 200; line-height: 1.15; letter-spacing: -0.025em;
+    color: var(--white);
+  }
+
+  .callout-text em { font-style: italic; color: rgba(255,255,255,0.45); }
+  .callout-text strong { font-weight: 500; color: var(--white); }
+
+  .callout-stripe.light .callout-text { color: var(--ink); }
+  .callout-stripe.light .callout-text em { color: var(--ink-light); }
+
+  .callout-sub {
+    font-size: 16px; line-height: 1.75; color: rgba(255,255,255,0.5);
+    max-width: 440px;
+  }
+
+  .callout-stripe.light .callout-sub { color: var(--ink-mid); }
+
+  /* ─── SECTION STRUCTURE ─── */
+  .section { border-bottom: 1.5px solid var(--rule); }
+
+  .section-header {
+    padding: 40px 64px;
+    border-bottom: 1.5px solid var(--rule);
+    display: flex; align-items: baseline; gap: 32px;
+  }
+
+  .sh-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); flex-shrink: 0;
+  }
+
+  .sh-title {
+    font-size: clamp(18px, 2.2vw, 26px);
+    font-weight: 400; line-height: 1.2; letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .sh-tags {
+    margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-light);
+    border: 1px solid var(--rule);
+    border-radius: 3px; padding: 4px 8px;
+  }
+
+  .section-body {
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 400px;
+  }
+
+  .sb-text {
+    padding: 48px 64px;
+    border-right: 1.5px solid var(--rule);
+    font-size: 16px; line-height: 1.85; color: var(--ink-mid);
+  }
+
+  .sb-text:last-child { border-right: none; }
+  .sb-text p + p { margin-top: 20px; }
+  .sb-text strong { color: var(--ink); font-weight: 500; }
+
+  .sb-text h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-light); margin: 28px 0 14px;
+  }
+
+  .sb-graphic {
+    padding: 48px 64px;
+    display: flex; flex-direction: column; justify-content: center;
+    background: var(--bg);
+    border-left: 1.5px solid var(--rule);
+  }
+
+  /* ─── PLACEHOLDER ─── */
+  .ph {
+    border: 1.5px dashed var(--rule);
+    border-radius: 6px;
+    padding: 48px 24px;
+    text-align: center;
+    background: var(--white);
+    display: flex; flex-direction: column; align-items: center;
+    position: relative;
+  }
+
+  /* Dashed border clearly signals "image goes here" */
+  .ph::before {
+    content: 'IMAGE PLACEHOLDER';
+    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px; letter-spacing: 0.16em;
+    color: var(--rule);
+  }
+
+  .ph svg {
+    width: 26px; height: 26px; stroke: var(--ink-light);
+    stroke-width: 1.5; fill: none; margin-bottom: 16px; margin-top: 12px;
+  }
+
+  .ph-type {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-light); margin-bottom: 8px; font-weight: 500;
+  }
+
+  .ph-caption {
+    font-size: 12px; line-height: 1.6;
+    color: var(--ink-light); max-width: 240px;
+  }
+
+  /* ─── FIX 4 — PULL QUOTES are now large and full-width ─── */
+  /* No longer tucked into the body column — they break out */
+  .pq-large {
+    padding: 48px 64px;
+    border-top: 1.5px solid var(--rule);
+    border-bottom: 1.5px solid var(--rule);
+    background: var(--white);
+  }
+
+  .pq-large p {
+    font-size: clamp(22px, 2.8vw, 38px);
+    font-weight: 200; line-height: 1.35; letter-spacing: -0.015em;
+    color: var(--ink); font-style: italic;
+    max-width: 900px;
+  }
+
+  .pq-large .pq-attr {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin-top: 20px; font-style: normal;
+    display: block;
+  }
+
+  /* Inline pull quote — kept for body column use */
+  .pq {
+    margin: 28px 0;
+    padding: 0 0 0 20px;
+    border-left: 2px solid var(--accent);
+  }
+
+  .pq p {
+    font-size: 18px; font-weight: 300; line-height: 1.55;
+    color: var(--ink); font-style: italic; letter-spacing: -0.005em;
+  }
+
+  /* ─── WORKFLOW ─── */
+  .wf { display: flex; flex-direction: column; gap: 0; margin-top: 20px; }
+
+  .wf-step {
+    display: grid; grid-template-columns: 32px 1fr auto;
+    gap: 12px; align-items: start;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--bg);
+  }
+
+  .wf-step:last-child { border-bottom: none; }
+
+  .wf-n {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.08em;
+    color: var(--accent); padding-top: 2px;
+  }
+
+  .wf-label { font-size: 14px; font-weight: 500; color: var(--ink); }
+  .wf-sub { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+  .wf-owner {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(74, 144, 226, 0.08);
+    border: 1px solid rgba(74, 144, 226, 0.2);
+    border-radius: 3px; padding: 3px 8px;
+    white-space: nowrap; margin-top: 2px;
+  }
+
+  /* ─── LEARNINGS ─── */
+  .learnings {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: 1.5px solid var(--rule);
+  }
+
+  .lcard {
+    padding: 48px 40px;
+    border-right: 1.5px solid var(--rule);
+    border-bottom: 1.5px solid var(--rule);
+    transition: background 0.2s;
+  }
+
+  .lcard:hover { background: var(--bg); }
+  .lcard:nth-child(3n) { border-right: none; }
+
+  .lc-n {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 20px;
+  }
+
+  .lc-title {
+    font-size: 18px; font-weight: 500; line-height: 1.3;
+    color: var(--ink); margin-bottom: 14px;
+    letter-spacing: -0.005em;
+  }
+
+  .lc-body { font-size: 14px; line-height: 1.75; color: var(--ink-mid); }
+
+  /* ─── FIX 3 — RECRUITER CTA SECTION ─── */
+  .cta-section {
+    background: var(--accent);
+    padding: 80px 64px;
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: center; gap: 60px;
+  }
+
+  .cta-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6); margin-bottom: 16px;
+  }
+
+  .cta-heading {
+    font-size: clamp(28px, 3.5vw, 48px);
+    font-weight: 300; line-height: 1.1; letter-spacing: -0.02em;
+    color: var(--white);
+  }
+
+  .cta-heading em { font-style: italic; opacity: 0.7; }
+
+  .cta-buttons {
+    display: flex; flex-direction: column; gap: 12px; flex-shrink: 0;
+  }
+
+  .btn-cta-primary {
+    display: inline-block;
+    background: var(--white); color: var(--accent);
+    font-size: 14px; font-weight: 600; letter-spacing: 0.02em;
+    text-decoration: none; border-radius: 6px;
+    padding: 14px 28px; text-align: center;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+  }
+
+  .btn-cta-primary:hover { opacity: 0.92; }
+
+  .btn-cta-ghost {
+    display: inline-block;
+    background: transparent; color: var(--white);
+    font-size: 13px; font-weight: 400; letter-spacing: 0.02em;
+    text-decoration: none; border-radius: 6px;
+    border: 1.5px solid rgba(255,255,255,0.4);
+    padding: 12px 28px; text-align: center;
+    white-space: nowrap;
+    transition: border-color 0.2s;
+  }
+
+  .btn-cta-ghost:hover { border-color: rgba(255,255,255,0.8); }
+
+  /* ─── FIX 5 — FOOTER (reframed bio) ─── */
+  footer { background: var(--dark); }
+
+  .footer-main {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr;
+    border-top: 1.5px solid rgba(255,255,255,0.07);
+  }
+
+  .fc {
+    padding: 72px 48px;
+    border-right: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .fc:last-child { border-right: none; }
+
+  .fc-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(255,255,255,0.25); margin-bottom: 24px;
+  }
+
+  .fc-name {
+    font-size: 28px; font-weight: 300; color: var(--white);
+    letter-spacing: -0.01em; margin-bottom: 20px;
+  }
+
+  /* FIX 5 — Bio rewritten to peer-to-peer, not job-seeker */
+  .fc-bio {
+    font-size: 14px; line-height: 1.85; color: rgba(255,255,255,0.45);
+  }
+
+  .fc-bio p + p { margin-top: 14px; }
+  .fc-bio strong { color: rgba(255,255,255,0.75); font-weight: 500; }
+
+  .fc-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    text-decoration: none;
+    font-size: 14px; color: rgba(255,255,255,0.5);
+    transition: color 0.2s;
+  }
+
+  .fc-link:hover { color: var(--white); }
+  .fc-link:first-of-type { border-top: 1px solid rgba(255,255,255,0.07); }
+
+  .status-dot {
+    display: inline-block; width: 6px; height: 6px;
+    background: var(--success); border-radius: 50%;
+    margin-right: 8px; animation: pulse 2s ease-in-out infinite;
+  }
+
+  .status-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--success);
+  }
+
+  .fc-app-link {
+    display: inline-block; margin-top: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.08em;
+    color: var(--accent); text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .fc-app-link:hover { opacity: 0.7; }
+
+  .footer-base {
+    padding: 24px 48px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .footer-copy {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.2);
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 960px) {
+    .nav-inner { padding: 0 24px; }
+    .nav-meta { display: none; }
+    .hero { padding: 0 24px; }
+    .hero-descriptor-wrap { grid-template-columns: 1fr; }
+    .hero-d-cell { border-right: none; border-bottom: 1.5px solid var(--rule); padding: 24px 0; }
+    .big-statement { padding: 60px 24px; }
+    .bs-inner { grid-template-columns: 1fr; gap: 24px; }
+    .callout-stripe { padding: 56px 24px; }
+    .cs-inner { grid-template-columns: 1fr; gap: 28px; }
+    .section-header { padding: 28px 24px; flex-direction: column; gap: 12px; }
+    .sh-tags { margin-left: 0; }
+    .section-body { grid-template-columns: 1fr; }
+    .sb-text { padding: 36px 24px; border-right: none; border-bottom: 1.5px solid var(--rule); }
+    .sb-graphic { padding: 36px 24px; border-left: none; }
+    .pq-large { padding: 40px 24px; }
+    .stat-stripe { grid-template-columns: repeat(2, 1fr); }
+    .learnings { grid-template-columns: 1fr; }
+    .lcard { border-right: none; }
+    .cta-section { grid-template-columns: 1fr; padding: 56px 24px; gap: 36px; }
+    .cta-buttons { flex-direction: row; flex-wrap: wrap; }
+    .footer-main { grid-template-columns: 1fr; }
+    .fc { padding: 48px 24px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .footer-base { padding: 20px 24px; flex-direction: column; gap: 8px; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<!-- FIX 3: CTA now recruiter-facing, not product-facing -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="lm">
+        <span style="height: 8px"></span>
+        <span style="height: 13px"></span>
+        <span style="height: 10px"></span>
+        <span style="height: 14px"></span>
+      </div>
+      HEARD
+    </a>
+    <div class="nav-meta">Product Case Study — Rey Benoit — 2025–26</div>
+    <a href="#contact" class="nav-cta">Let's talk →</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <div class="hero-top">
+      <div class="hero-top-left">Product Case Study / Design Leadership / AI-Assisted Development</div>
+      <div class="hero-top-right">
+        <span class="htag">183 hours</span>
+        <span class="htag">1 designer</span>
+        <span class="htag">0 engineers</span>
+      </div>
+    </div>
+
+    <div class="hero-center">
+      <h1 class="hero-h1">
+        15 years of<br>
+        <span class="line-em">design leadership,</span><br>
+        one AI-built<br>
+        <span class="line-accent">product,</span><br>
+        end-to-end.
+      </h1>
+      <div class="hero-byline">Rey Benoit — Design Leader, Lyricist, Builder</div>
+
+      <!-- FIX 2: Descriptor cells now larger, bolder, more scannable -->
+      <div class="hero-descriptor-wrap">
+        <div class="hero-d-cell">
+          <div class="hdc-label">What I built</div>
+          <div class="hdc-value">HEARD — <span>AI demo track generation for lyricists. Lyrics in, produced track out, in minutes.</span></div>
+        </div>
+        <div class="hero-d-cell">
+          <div class="hdc-label">How I built it</div>
+          <div class="hdc-value">Solo. <span>No engineering support, no budget. AI as a force multiplier across research, design, brand, and code.</span></div>
+        </div>
+        <div class="hero-d-cell">
+          <div class="hdc-label">What it proves</div>
+          <!-- FIX 2: "Designers can ship" surfaced here, above the fold -->
+          <div class="hdc-value">Designers can ship. <span>The bottleneck isn't who can write the code — it's who knows clearly enough what should happen.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── STAT STRIPE ─── -->
+  <div class="stat-stripe">
+    <div class="stat-cell reveal">
+      <div class="sc-label">Research</div>
+      <div class="sc-num">3<em>h</em></div>
+      <div class="sc-desc">Landscape mapping, API testing, self-interview, pivot decisions</div>
+    </div>
+    <div class="stat-cell reveal">
+      <div class="sc-label">Proof of Concept</div>
+      <div class="sc-num">30<em>h</em></div>
+      <div class="sc-desc">3 backend pivots, prototype iterations, technical validation</div>
+    </div>
+    <div class="stat-cell reveal">
+      <div class="sc-label">Brand & Design</div>
+      <div class="sc-num">120<em>h</em></div>
+      <div class="sc-desc">Guidelines, naming, logo, homepage, app redesign</div>
+    </div>
+    <div class="stat-cell reveal">
+      <div class="sc-label">Implementation</div>
+      <div class="sc-num">30<em>h</em></div>
+      <div class="sc-desc">Production web app, auth, state management, responsive layouts</div>
+    </div>
+  </div>
+
+  <!-- ─── INTRO BIG STATEMENT ─── -->
+  <div class="big-statement reveal">
+    <div class="bs-inner">
+      <div>
+        <div class="bs-label">The Idea</div>
+        <div class="bs-number">01</div>
+      </div>
+      <div class="bs-quote">"I wanted to know if AI could collapse weeks of rehearsal and recording into something that fit inside a lunch break."</div>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 01: POC ─── -->
+  <div class="section reveal">
+    <div class="section-header reveal">
+      <div class="sh-num">01 — Research</div>
+      <h2 class="sh-title">Proof of Concept: The Hard Way First</h2>
+      <div class="sh-tags">
+        <span class="tag">UberDuck</span>
+        <span class="tag">ElevenLabs</span>
+        <span class="tag">API Testing</span>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="sb-text">
+        <p>I didn't know if what I wanted to build was technically feasible, so I didn't design a pixel before I had a working prototype. I used Claude to research the current landscape of music generation AI, surfacing early candidates: UberDuck and Kits.ai.</p>
+        <p>UberDuck's fast voice cloning worked on their web interface. But the API required significantly longer samples than the web app. <strong>That asymmetry would've been a fatal UX problem</strong> — users shouldn't need to record several minutes of audio just to hear a quick demo.</p>
+        <p>I pivoted to ElevenLabs — the industry leader in text-to-speech. It worked: I got an AI voice clone rapping my lyrics. It sounded terrible. Not because the clone was poor — it actually sounded like me — but because <strong>text-to-speech models and rap performance are fundamentally incompatible.</strong></p>
+        <p>The prototype worked technically. The output failed artistically. That distinction mattered.</p>
+      </div>
+      <div class="sb-graphic">
+        <div class="ph">
+          <svg viewBox="0 0 24 24"><path d="M9 19V6l12-3v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="15" r="3"/></svg>
+          <div class="ph-type">Audio Comparison</div>
+          <div class="ph-caption">ElevenLabs TTS output vs. Suno diffusion output — same lyrics, fundamentally different musical results</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 02: RESEARCH ─── -->
+  <div class="section reveal">
+    <div class="section-header reveal">
+      <div class="sh-num">02 — Insight</div>
+      <h2 class="sh-title">User Research Method: Interviewing Myself</h2>
+      <div class="sh-tags">
+        <span class="tag">Role Separation</span>
+        <span class="tag">Behavioral Research</span>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="sb-text">
+        <p>Rather than assuming I knew what problem the tool should solve, I used Claude to conduct structured user research — on me. If I wrote the interview questions myself and then answered them myself, my researcher brain and my user brain would contaminate each other.</p>
+        <p>I gave Claude the role of UX researcher and gave myself permission to just be the user. The AI asked the questions. I answered honestly, without steering toward conclusions I'd already reached.</p>
+        <p>The research reframed the product entirely. I didn't need a voice cloning tool. <strong>I needed an AI session artist.</strong> HEARD would own steps 1–3. The user owns step 4.</p>
+      </div>
+      <div class="sb-text" style="border-right: none;">
+        <div class="wf">
+          <div class="wf-step">
+            <div class="wf-n">01</div>
+            <div>
+              <div class="wf-label">Enter lyrics</div>
+              <div class="wf-sub">User provides their written work, structure markers intact</div>
+            </div>
+            <div class="wf-owner">HEARD</div>
+          </div>
+          <div class="wf-step">
+            <div class="wf-n">02</div>
+            <div>
+              <div class="wf-label">AI interprets & generates</div>
+              <div class="wf-sub">Like a session artist reading a lyric sheet</div>
+            </div>
+            <div class="wf-owner">HEARD</div>
+          </div>
+          <div class="wf-step">
+            <div class="wf-n">03</div>
+            <div>
+              <div class="wf-label">User iterates</div>
+              <div class="wf-sub">Finds a direction worth developing further</div>
+            </div>
+            <div class="wf-owner">HEARD</div>
+          </div>
+          <div class="wf-step">
+            <div class="wf-n">04</div>
+            <div>
+              <div class="wf-label">User takes it forward</div>
+              <div class="wf-sub">Into their normal DAW workflow to finish</div>
+            </div>
+            <div class="wf-owner" style="color: var(--ink-mid); background: var(--bg); border-color: var(--rule);">USER</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── FIX 4 — LARGE PULL QUOTE #1: The core insight ─── -->
+  <div class="pq-large reveal">
+    <p>"The biggest pain point in my process isn't recording. It's the rehearsal phase before recording: days spent figuring out how lyrics should flow against a beat."
+      <span class="pq-attr">— Key finding from AI-assisted self-interview</span>
+    </p>
+  </div>
+
+  <!-- ─── SECTION 03: TECHNOLOGY ─── -->
+  <div class="section reveal">
+    <div class="section-header reveal">
+      <div class="sh-num">03 — Technology</div>
+      <h2 class="sh-title">Why Diffusion Models Changed Everything</h2>
+      <div class="sh-tags">
+        <span class="tag">Suno / Kie AI</span>
+        <span class="tag">Architecture Decision</span>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="sb-text">
+        <p>While testing, I found tools producing significantly better musical output. The difference in quality was stark, and I wanted to understand why.</p>
+        <p>ElevenLabs and UberDuck are text-to-speech models — trained on spoken dialogue and audiobooks. They understand emotional pacing and vocal tone, but have no concept of bars, beat structure, or musical timing. They produce emotional speech, not musical performance.</p>
+        <p><strong>Diffusion models are different.</strong> They're trained on actual songs, including instrumentals. They understand the relationship between a lyric and a beat. They produce performances that feel musical because they were shaped by music.</p>
+        <p>You can't make a speech engine understand rap timing. Once I understood that, the path was clear. I rebuilt the prototype around Suno via the Kie AI service — low per-use cost, output quality in a different class.</p>
+      </div>
+      <div class="sb-graphic">
+        <div class="ph">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          <div class="ph-type">Tech Stack Diagram</div>
+          <div class="ph-caption">FastAPI → Kie AI → Suno diffusion model, with Claude API for prompt enhancement layer</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── FIX 2 — CALLOUT STRIPE #1: "Designers can ship" elevated ─── -->
+  <div class="callout-stripe reveal">
+    <div class="cs-inner">
+      <div>
+        <div class="callout-label">The thesis</div>
+        <div class="callout-text">
+          Designers can ship.<br>
+          <em>The bottleneck was never the code.</em>
+        </div>
+      </div>
+      <div class="callout-sub">
+        With AI handling the implementation layer, the constraint shifted. The most valuable skill in the room was knowing <em>clearly enough what should happen</em> — with the specificity required to actually build it. That's a design skill. Always has been.
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 04: USABILITY ─── -->
+  <div class="section reveal">
+    <div class="section-header reveal">
+      <div class="sh-num">04 — Usability</div>
+      <h2 class="sh-title">Genre Literacy: The Real UX Friction</h2>
+      <div class="sh-tags">
+        <span class="tag">Usability Study</span>
+        <span class="tag">AI-Assisted Research</span>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="sb-text">
+        <p>I ran an AI-assisted usability study — Claude prompted me with questions as I moved through each step of the actual prototype. The goal was to catch the issues that felt invisible to me as the builder.</p>
+        <p><strong>The most significant finding: genre literacy.</strong> The prototype listed 16 genres as a wall of checkboxes. For a new user, those labels meant almost nothing in terms of predicting what the final output would actually sound like.</p>
+        <p>If users can't predict the output, they can't make good decisions. And if they can't make good decisions, they waste credits and lose trust in the tool.</p>
+        <h4>The Fixes</h4>
+        <p>Added audio samples and written descriptions to each genre. Expanded and organized options into subcategories. Introduced AI-generated prompts feeding into the music model to improve output quality.</p>
+      </div>
+      <div class="sb-graphic">
+        <div class="ph">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <div class="ph-type">Before / After</div>
+          <div class="ph-caption">Genre selection v1 (wall of checkboxes) vs v2 (organized cards with audio samples + descriptions)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 05: BRAND ─── -->
+  <div class="section reveal">
+    <div class="section-header reveal">
+      <div class="sh-num">05 — Brand</div>
+      <h2 class="sh-title">Naming, Logo, and an Identity That Meant Something</h2>
+      <div class="sh-tags">
+        <span class="tag">Naming Strategy</span>
+        <span class="tag">Visual Identity</span>
+        <span class="tag">Figma</span>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="sb-text">
+        <p>A functional product and a product worth using are not the same thing. Brand is the foundation from which all downstream decisions flow — how you articulate your values, establish a voice, and give users something to connect with that isn't just features and pricing.</p>
+        <p>I used AI to run a structured brand development session. The exercise wasn't about generating a brand — it was about drawing out what I already believed and making it explicit.</p>
+        <p>The leading name candidates were "First Listen" and "Herd." I originally leaned toward Herd — an intentional alternate spelling, the acronym landed: <em>Hear Every Rhyme Delivered</em>. But days later, the word's other meaning surfaced — cattle, crowds, following — wrong for a product about individual creative expression.</p>
+        <p>I adjusted to <strong>HEARD: Hear Every Authored Rhyme Delivered.</strong> Past tense, action completed. A lyricist finally heard.</p>
+        <p>For the logo: image generation AI couldn't produce final assets, but the process wasn't wasted. The generations gave me directional clarity I wouldn't have found on a blank canvas. I moved into Figma and built the final logo from scratch.</p>
+      </div>
+      <div class="sb-graphic">
+        <div class="ph">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          <div class="ph-type">Brand Identity System</div>
+          <div class="ph-caption">HEARD wordmark, app icon (geometric metering bars replacing H crossbar), full color palette + type system</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── FIX 4 — LARGE PULL QUOTE #2: The brand insight ─── -->
+  <div class="pq-large reveal" style="background: var(--bg);">
+    <p>"Apps are commodities. What can't be generated is a product that feels made by someone who understands the problem from the inside — a lyricist, not a technologist."
+      <span class="pq-attr">— Key learning from the build</span>
+    </p>
+  </div>
+
+  <!-- ─── SECTION 06: BUILD ─── -->
+  <div class="section reveal">
+    <div class="section-header reveal">
+      <div class="sh-num">06 — Build</div>
+      <h2 class="sh-title">From Prototype to Production Web App</h2>
+      <div class="sh-tags">
+        <span class="tag">React + Vite</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">Claude Code</span>
+        <span class="tag">Cursor</span>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="sb-text">
+        <p>Enough design was done to begin real development. I set up a local environment using Cursor and Claude Code. The Figma-to-Claude MCP connection let me translate designs directly into code — the one-shot output got me farther than expected, but like every one-shot prompt, it needed refinement.</p>
+        <p>Building the signup flow pushed me into product strategy territory. I wanted people to feel like they were joining something — not just creating another account. The flow: homepage → request form → personal review by me on weekends → invite code via personal email → account creation → warm welcome → Step 1.</p>
+        <p><strong>Together, Claude and I built something that neither of us could have produced alone.</strong> Claude couldn't have anticipated the product scenarios. I couldn't have written the implementation. The collaboration was genuine — not me directing a tool, but two different kinds of intelligence working on the same problem.</p>
+      </div>
+      <div class="sb-graphic">
+        <div class="ph">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+          <div class="ph-type">App Screenshot</div>
+          <div class="ph-caption">HEARD creation flow — 3 steps + results panel with dual-track output and version history</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── FIX 2 — CALLOUT STRIPE #2: The collaboration insight ─── -->
+  <div class="callout-stripe light reveal">
+    <div class="cs-inner single">
+      <div>
+        <div class="callout-label">The collaboration</div>
+        <div class="callout-text">
+          Neither of us could have built it alone.<br>
+          <em>That's what AI-era design leadership looks like.</em>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── LEARNINGS ─── -->
+  <div id="learnings">
+    <div class="section-header reveal" style="padding: 48px 64px; background: var(--bg);">
+      <div class="sh-num">— Takeaways</div>
+      <h2 class="sh-title" style="font-size: clamp(22px, 2.8vw, 34px);">What I learned building HEARD</h2>
+    </div>
+    <div class="learnings">
+      <div class="lcard reveal">
+        <div class="lc-n">01</div>
+        <h3 class="lc-title">AI amplifies ability. It doesn't replace it.</h3>
+        <p class="lc-body">Every tool I used required judgment at every step. Output quality was entirely dependent on the inputs — and those inputs came from 15 years of design experience.</p>
+      </div>
+      <div class="lcard reveal">
+        <div class="lc-n">02</div>
+        <h3 class="lc-title">The research methods transferred.</h3>
+        <p class="lc-body">AI-assisted self-interview and usability study weren't substitutes for real user research — they were genuine methodological moves. The key was role separation.</p>
+      </div>
+      <div class="lcard reveal">
+        <div class="lc-n">03</div>
+        <h3 class="lc-title">Designers can ship.</h3>
+        <p class="lc-body">With AI handling the implementation layer, the bottleneck shifted: it was no longer about who could write the code. It was about who knew clearly enough what should happen.</p>
+      </div>
+      <div class="lcard reveal">
+        <div class="lc-n">04</div>
+        <h3 class="lc-title">Apps are commodities. Brands are not.</h3>
+        <p class="lc-body">Anyone can generate a lyrics-to-music tool right now. What can't be generated: a product that feels made by someone who understands the problem from the inside.</p>
+      </div>
+      <div class="lcard reveal">
+        <div class="lc-n">05</div>
+        <h3 class="lc-title">Deferred decisions are decisions too.</h3>
+        <p class="lc-body">Voice cloning was my original idea. I cut it. Knowing what to leave out — and being honest about why — is as important as knowing what to build.</p>
+      </div>
+      <div class="lcard reveal" style="display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div class="lc-n">Status</div>
+          <div style="margin-bottom: 12px;">
+            <span class="status-dot"></span>
+            <span class="status-label">Closed Beta</span>
+          </div>
+          <p class="lc-body" style="color: var(--ink-mid);">Alpha testers are actively using the platform and providing feedback.</p>
+        </div>
+        <a href="https://heard.studio" style="display: inline-block; margin-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--accent); text-decoration: none;">heard.studio →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── FIX 3 — RECRUITER CTA ─── -->
+  <!-- Prominent, human, with two paths: email and LinkedIn -->
+  <div class="cta-section reveal" id="contact">
+    <div>
+      <div class="cta-label">For recruiters & hiring managers</div>
+      <div class="cta-heading">
+        If you're building a team that wants design leadership <em>ready for what's next,</em> let's talk.
+      </div>
+    </div>
+    <div class="cta-buttons">
+      <a href="/cdn-cgi/l/email-protection#0a786f734a626f6b786e24797e7f6e6365" class="btn-cta-primary">Send me an email</a>
+      <a href="https://linkedin.com/in/reybenoit" class="btn-cta-ghost">Connect on LinkedIn</a>
+    </div>
+  </div>
+
+  <!-- ─── FOOTER ─── -->
+  <!-- FIX 5: Bio reframed — peer-to-peer, not job-seeker -->
+  <footer>
+    <div class="footer-main">
+      <div class="fc">
+        <div class="fc-label">About</div>
+        <div class="fc-name">Rey Benoit</div>
+        <div class="fc-bio">
+          <!-- FIX 5: Removed "currently seeking" framing. Positioned as someone with conviction and range. -->
+          <p>I'm a design leader with <strong>15 years of experience</strong> building products at the intersection of craft and technology. I've spent my career leading design across product and engineering teams — and I built HEARD to prove something to myself about what that experience is worth in the AI era.</p>
+          <p>HEARD isn't a side project. It's a genuine product solving a real problem I have as a lyricist — and a demonstration that <strong>a designer with deep UX instincts and the right tools can now operate across the full product stack.</strong></p>
+          <p>I'm interested in design leadership roles at companies building products that will define the next decade — particularly at the intersection of AI and human creativity.</p>
+        </div>
+      </div>
+      <div class="fc">
+        <div class="fc-label">Contact</div>
+        <a href="/cdn-cgi/l/email-protection#6715021e270f0206150349141312030e08" class="fc-link"><span class="__cf_email__" data-cfemail="4230273b022a272330266c313637262b2d">[email&#160;protected]</span> <span>↗</span></a>
+        <a href="https://heard.studio" class="fc-link">heard.studio <span>↗</span></a>
+        <a href="https://linkedin.com/in/reybenoit" class="fc-link">LinkedIn <span>↗</span></a>
+        <a href="https://github.com/reybenoit/heard-web-app" class="fc-link">GitHub — reybenoit/heard-web-app <span>↗</span></a>
+      </div>
+      <div class="fc">
+        <div class="fc-label">The Product</div>
+        <div style="margin-bottom: 16px;">
+          <span class="status-dot"></span>
+          <span class="status-label">Closed Beta</span>
+        </div>
+        <div class="fc-bio">
+          <p>HEARD is currently in closed beta. Alpha testers are using the platform and providing feedback. Request early access to be considered for the next cohort.</p>
+        </div>
+        <a href="https://heard.studio" class="fc-app-link">Request access at heard.studio →</a>
+      </div>
+    </div>
+    <div class="footer-base">
+      <div class="footer-copy">© 2026 Rey Benoit · HEARD — Hear Every Authored Rhyme Delivered</div>
+    </div>
+  </footer>
+
+</div><!-- /page-wrap -->
+
+<script>
+  // Robust scroll reveal — uses both IntersectionObserver and a fallback
+  // that checks element positions on scroll for environments where
+  // the observer threshold may not fire reliably.
+
+  const revealEls = document.querySelectorAll('.reveal');
+
+  function isInViewport(el) {
+    const rect = el.getBoundingClientRect();
+    return rect.top < (window.innerHeight || document.documentElement.clientHeight) * 0.92;
+  }
+
+  function revealVisible() {
+    revealEls.forEach(el => {
+      if (isInViewport(el)) el.classList.add('visible');
+    });
+  }
+
+  // Run once on load
+  revealVisible();
+
+  // Run on scroll
+  window.addEventListener('scroll', revealVisible, { passive: true });
+
+  // Also run IntersectionObserver as a belt-and-suspenders backup
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+    revealEls.forEach(el => io.observe(el));
+  }
+</script>
+</body>
+</html>
