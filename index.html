@@ -142,9 +142,10 @@
   /* FIX 2 — Hero descriptor cells are larger and bolder for scannability */
   .hero-descriptor-wrap {
     display: grid; grid-template-columns: 1fr 1fr 1fr;
-    gap: 0; margin-top: 60px;
+    gap: 0;
     border-top: 1.5px solid var(--rule);
     animation: fadeUp 0.7s 0.2s ease both;
+    align-self: end;
   }
 
   .hero-d-cell {
@@ -758,21 +759,21 @@
       </h1>
       <div class="hero-byline">Rey Benoit — Design Leader, Lyricist, Builder</div>
 
-      <!-- FIX 2: Descriptor cells now larger, bolder, more scannable -->
-      <div class="hero-descriptor-wrap">
-        <div class="hero-d-cell">
-          <div class="hdc-label">What I built</div>
-          <div class="hdc-value">HEARD — <span>AI demo track generation for lyricists. Lyrics in, produced track out, in minutes.</span></div>
-        </div>
-        <div class="hero-d-cell">
-          <div class="hdc-label">How I built it</div>
-          <div class="hdc-value">Solo. <span>No engineering support, no budget. AI as a force multiplier across research, design, brand, and code.</span></div>
-        </div>
-        <div class="hero-d-cell">
-          <div class="hdc-label">What it proves</div>
-          <!-- FIX 2: "Designers can ship" surfaced here, above the fold -->
-          <div class="hdc-value">Designers can ship. <span>The bottleneck isn't who can write the code — it's who knows clearly enough what should happen.</span></div>
-        </div>
+    </div>
+
+    <!-- Descriptor cells sit in their own grid row, pinned to bottom of viewport -->
+    <div class="hero-descriptor-wrap">
+      <div class="hero-d-cell">
+        <div class="hdc-label">What I built</div>
+        <div class="hdc-value">HEARD — <span>AI demo track generation for lyricists. Lyrics in, produced track out, in minutes.</span></div>
+      </div>
+      <div class="hero-d-cell">
+        <div class="hdc-label">How I built it</div>
+        <div class="hdc-value">Solo. <span>No engineering support, no budget. AI as a force multiplier across research, design, brand, and code.</span></div>
+      </div>
+      <div class="hero-d-cell">
+        <div class="hdc-label">What it proves</div>
+        <div class="hdc-value">Designers can ship. <span>The bottleneck isn't who can write the code — it's who knows clearly enough what should happen.</span></div>
       </div>
     </div>
   </section>
