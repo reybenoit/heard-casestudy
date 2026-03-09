@@ -151,15 +151,7 @@
     position: relative;
   }
 
-  .hero-byline {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 22px; font-weight: 300; letter-spacing: -0.01em;
-    color: var(--ink-mid);
-    margin-top: 32px; margin-bottom: 0;
-    animation: fadeUp 0.7s ease both;
-  }
-
-  .hero-h1 {
+.hero-h1 {
     font-size: clamp(48px, 8.5vw, 128px);
     font-weight: 200;
     line-height: 0.95;
@@ -192,9 +184,14 @@
   .hero-d-cell:not(:first-child) { padding-left: 36px; }
 
   .hdc-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 14px; letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(0,0,0,0.5); margin-bottom: 12px;
+  }
+  .hdc-label::before {
+    content: '// ';
+    color: var(--accent);
+    font-weight: 700;
   }
 
   /* Bumped from 15px → 17px, weight from 400 → 500 */
@@ -757,10 +754,10 @@
 <!-- FIX 3: CTA now recruiter-facing, not product-facing -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="nav-logo">
+    <a href="#" class="nav-logo" style="display: flex; align-items: center; gap: 12px;">
       <img src="logo.svg" alt="HEARD" style="height: 24px; width: auto; display: block;">
+      <span style="font-family: 'DM Sans', sans-serif; font-size: 14px; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(0,0,0,0.5); font-weight: 400;">| Product Case Study</span>
     </a>
-    <div class="nav-meta">Product Case Study — Rey Benoit — 2025–26</div>
     <a href="#contact" class="nav-cta">Let's talk →</a>
   </div>
 </nav>
@@ -772,13 +769,13 @@
     <div class="hero-bg" aria-hidden="true"></div>
     <div class="hero-grid" aria-hidden="true"></div>
     <div class="hero-center">
+      <p style="font-family: 'DM Sans', sans-serif; font-size: 14px; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(0,0,0,0.5); margin-bottom: 24px;"><span style="color: var(--accent); font-weight: 700;">//</span> Rey Benoit — Design Leader, Builder, Lyricist</p>
       <h1 class="hero-h1">
         Design leadership<br>
         <span class="line-em">has changed.</span><br>
         Designers can ship.<br>
         <span class="line-accent">I built the proof.</span>
       </h1>
-      <div class="hero-byline">Rey Benoit — Design Leader, Lyricist, Builder</div>
 
     </div>
 
@@ -786,15 +783,15 @@
     <div class="hero-descriptor-wrap">
       <div class="hero-d-cell">
         <div class="hdc-label">What I built</div>
-        <div class="hdc-value">HEARD — <span>AI demo track generation for lyricists. Lyrics in, produced track out, in minutes.</span></div>
+        <div class="hdc-value">HEARD — <span>A lyric-first music tool that turns written words into produced demo tracks using AI. Built for a problem no app had solved, by the lyricist who had it.</span></div>
       </div>
       <div class="hero-d-cell">
         <div class="hdc-label">How I built it</div>
-        <div class="hdc-value">Solo. <span>No engineering support, no budget. AI as a force multiplier across research, design, brand, and code.</span></div>
+        <div class="hdc-value">One builder. <span>AI as collaborator, not shortcut — every discipline moved faster and reached further because of it.</span></div>
       </div>
       <div class="hero-d-cell">
         <div class="hdc-label">What it proves</div>
-        <div class="hdc-value">Designers can ship. <span>The bottleneck isn't who can write the code — it's who knows clearly enough what should happen.</span></div>
+        <div class="hdc-value">Designers can ship. <span>The designer who understands the problem deeply and can direct AI precisely can now own the full product — from insight to working software.</span></div>
       </div>
     </div>
   </section>
